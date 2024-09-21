@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="styles.css">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f0f8ff;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #007BFF;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    transition: background 0.3s;
+    z-index: 1000;
+}
+
+nav.scrolled {
+    background: #0056b3;
+}
+
+nav .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ffeb3b;
+}
+
+section {
+    padding: 100px 20px;
+    min-height: 100vh;
+}
+
+.weather-container {
+    text-align: center;
+    background: #e3f2fd;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 100px auto;
+}
+
+#location-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background: #007BFF;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+#weather-info {
+    margin-top: 20px;
+}
+
+h1, h2, p {
+    margin: 10px 0;
+}
+
+</style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="logo">Weather App</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <div class="weather-container">
+            <h1>Weather App</h1>
+            <input type="text" id="location-input" placeholder="Enter location">
+            <button id="fetch-weather">Get Weather</button>
+            <div id="weather-info">
+                <h2 id="city-name"></h2>
+                <p id="temperature"></p>
+                <p id="description"></p>
+                <p id="humidity"></p>
+                <p id="wind-speed"></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About</h2>
+        <p>This is a simple weather app that fetches and displays weather data based on the user's location or a user-inputted location.</p>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>You can contact us at weatherapp@example.com</p>
+    </section>
+
+    <script src="script.js"></script>
+<script>
+document.getElementById('fetch-weather').addEventListener('click', function() {
+    const location = document.getElementById('location-input').value;
+    fetchWeather(location);
+});
+
+function fetchWeather(location) {
+    const apiKey = 'YOUR_API_KEY'; // Replace with your OpenWeatherMap API key
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${apiKey}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            displayWeather(data);
+        })
+        .catch(error => {
+            console.error('Error fetching weather data:', error);
+        });
+}
+
+function displayWeather(data) {
+    document.getElementById('city-name').textContent = data.name;
+    document.getElementById('temperature').textContent = `Temperature: ${data.main.temp}°C`;
+    document.getElementById('description').textContent = `Conditions: ${data.weather[0].description}`;
+    document.getElementById('humidity').textContent = `Humidity: ${data.main.humidity}%`;
+    document.getElementById('wind-speed').textContent = `Wind Speed: ${data.wind.speed} m/s`;
+}
+
+window.addEventListener('scroll', function() {
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+</script>
+</body>
+</html>
