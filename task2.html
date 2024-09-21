@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch Application</title>
+	<style> body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.stopwatch {
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#time-display {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.buttons button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttons button:hover {
+    background-color: #0056b3;
+}
+
+#laps {
+    margin-top: 20px;
+    text-align: left;
+}
+</style>
+</head>
+<body>
+    <div class="stopwatch">
+        <h1>Stopwatch</h1>
+        <div id="time-display">00:00:00</div>
+        <div class="buttons">
+            <button id="start-btn">Start</button>
+            <button id="pause-btn">Pause</button>
+            <button id="reset-btn">Reset</button>
+            <button id="lap-btn">Lap</button>
+        </div>
+        <div id="laps"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<script>
+let startTime, updatedTime, difference, interval;
+let paused = true;
+let lapsArray = [];
+
+const timeDisplay = document.getElementById('time-display');
+const lapContainer = document.getElementById('laps');
+
+function startStopwatch() {
+    if (paused) {
+        paused = false;
+        startTime = new Date().getTime() - (difference || 0);
+        interval = setInterval(updateTime, 1000 / 60); // Update every 1/60th of a second
+    }
+}
+
+function pauseStopwatch() {
+    paused = true;
+    clearInterval(interval);
+}
+
+function resetStopwatch() {
+    paused = true;
+    clearInterval(interval);
+    difference = 0;
+    lapsArray = [];
+    timeDisplay.textContent = "00:00:00";
+    lapContainer.innerHTML = '';
+}
+
+function lapStopwatch() {
+    if (!paused) {
+        let currentTime = timeDisplay.textContent;
+        lapsArray.push(currentTime);
+        displayLaps();
+    }
+}
+
+function updateTime() {
+    updatedTime = new Date().getTime();
+    difference = updatedTime - startTime;
+
+    let hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+    let minutes = Math.floor((difference / (1000 * 60)) % 60);
+    let seconds = Math.floor((difference / 1000) % 60);
+
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+    timeDisplay.textContent = `${hours}:${minutes}:${seconds}`;
+}
+
+function displayLaps() {
+    lapContainer.innerHTML = '';
+    lapsArray.forEach((lap, index) => {
+        const lapElement = document.createElement('div');
+        lapElement.textContent = `Lap ${index + 1}: ${lap}`;
+        lapContainer.appendChild(lapElement);
+    });
+}
+
+document.getElementById('start-btn').addEventListener('click', startStopwatch);
+document.getElementById('pause-btn').addEventListener('click', pauseStopwatch);
+document.getElementById('reset-btn').addEventListener('click', resetStopwatch);
+document.getElementById('lap-btn').addEventListener('click', lapStopwatch);
+</script>

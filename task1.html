@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Navigation Menu</title>
+<style>
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #333;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  padding: 10px 20px;
+}
+
+.nav-menu li {
+  margin: 0 15px;
+}
+
+.nav-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Hover effect on menu items */
+.nav-menu a:hover {
+  color: #00aaff;
+  border-bottom: 2px solid #00aaff;
+}
+
+/* Section styling for page content */
+section {
+  min-height: 100vh;
+  padding: 60px 20px;
+}
+
+/* Sticky effect: change background color on scroll */
+.sticky {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Adjust top padding to ensure section content isn't hidden by the fixed nav */
+section#home {
+  padding-top: 100px;
+}
+</style>
+</head>
+<body>
+  <header>
+    <nav class="navbar" id="navbar">
+      <ul class="nav-menu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home">
+    <h1>Welcome to the Home Section</h1>
+    <p>Scroll down to see the navigation menu effect.</p>
+  </section>
+
+  <section id="about">
+    <h1>About Us</h1>
+    <p>We are a team of developers...</p>
+  </section>
+
+  <section id="services">
+    <h1>Our Services</h1>
+    <p>We offer various services...</p>
+  </section>
+
+  <section id="contact">
+    <h1>Contact Us</h1>
+    <p>Get in touch via email...</p>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
+<script>// Select the navbar
+const navbar = document.getElementById('navbar');
+
+// Add an event listener to handle scroll event
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    navbar.classList.add('sticky');
+  } else {
+    navbar.classList.remove('sticky');
+  }
+});
+
+</script>
