@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #007BFF;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    transition: background 0.3s;
+    z-index: 1000;
+}
+
+nav.scrolled {
+    background: #0056b3;
+}
+
+nav .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ffeb3b;
+}
+
+section {
+    padding: 100px 20px;
+    min-height: 100vh;
+}
+
+#home {
+    text-align: center;
+    background: #f8f9fa;
+    padding: 150px 20px;
+}
+
+.home-content h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.home-content img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+#about, #projects {
+    background: #e9ecef;
+}
+
+h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.project {
+    margin-bottom: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #007BFF;
+    color: #fff;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+</style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="logo">Your Name</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#projects">Projects</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <div class="home-content">
+            <h1>Welcome to My Portfolio</h1>
+            <img src="your-photo.jpg" alt="Your Photo">
+            <p>Hi, I'm a web developer skilled in HTML, CSS, and JavaScript.</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>
+            I am a passionate web developer with experience in creating dynamic and responsive websites. 
+            I have a background in computer science and have worked on various projects ranging from small business websites to large web applications.
+        </p>
+        <h3>Education</h3>
+        <ul>
+            <li>Bachelor's Degree in Computer Science</li>
+        </ul>
+        <h3>Experience</h3>
+        <ul>
+            <li>Web Developer at XYZ Company</li>
+            <li>Freelance Web Developer</li>
+        </ul>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="project">
+            <h3>Project 1</h3>
+            <p>Description of Project 1</p>
+<script>
+window.addEventListener('scroll', function() {
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
+</script>
+        </div>
+        <div
